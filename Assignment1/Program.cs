@@ -10,6 +10,7 @@ Console.WriteLine();
 string continue_calculate = "n";
 do
 {
+    Console.Clear();
     int value1 = Input.getInput("Enter Value1:");
     int value2 = Input.getInput("Enter Value2:");
     Console.WriteLine($"Value1: {value1}");
@@ -24,29 +25,22 @@ do
 
     Calculator calculator = new Calculator();
     int result = 0;
-    if (operation == 1)
+    switch(operation)
     {
-        result = calculator.Add(value1, value2);
-        Console.WriteLine($"Result: {result}");
+        case 1:
+            result = calculator.Add(value1, value2);
+            break;
+        case 2:
+            result = calculator.Subtract(value1, value2);
+            break;
+        case 3:
+            result = calculator.Multiply(value1, value2);
+            break;
     }
-    else if (operation == 2)
-    {
-        result = calculator.Subtract(value1, value2);
-        Console.WriteLine($"Result: {result}");
-    }
-    else if (operation == 3)
-    {
-        result = calculator.Multiply(value1, value2);
-        Console.WriteLine($"Result: {result}");
-    }
-    else
-    {
-        Console.WriteLine("Invalid operation.");
-    }
-    Console.WriteLine();
+    Console.WriteLine($"Result: {result}");
     Console.WriteLine("Calculate again ? (y/n)");
     continue_calculate = Console.ReadLine();
-} while (continue_calculate == "Y" || continue_calculate == "y");
+} while (continue_calculate.ToLower() == "y");
 
 
 static class Input
@@ -58,15 +52,16 @@ static class Input
             try
             {
                 Console.WriteLine($"{name}");
-                var v1 = Console.ReadLine();
-                int a = int.Parse(v1);
-                return a;
+                var read_input = Console.ReadLine();
+                int read_integer = int.Parse(read_input);
+                return read_integer;
             }
             catch
             {
                 Console.WriteLine("Invalid input.");
             }
         }
+        return 0;
     }
 }
 
